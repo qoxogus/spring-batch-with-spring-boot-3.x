@@ -1,6 +1,5 @@
 package com.spring.batch.config.batch.job.simple;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -17,8 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor
-public class SimpleBatchJobConfiguration {
+public class SimpleJobConfiguration {
 
     @Bean
     public Job simpleJob(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
