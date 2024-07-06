@@ -1,6 +1,5 @@
 package com.spring.batch.config.batch.job;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -15,7 +14,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor
 public class StepNextJobConfiguration {
 
     @Bean
@@ -42,10 +40,7 @@ public class StepNextJobConfiguration {
     }
 
     @Bean
-    public Step step2(
-            PlatformTransactionManager transactionManager,
-            JobRepository jobRepository
-    ) {
+    public Step step2(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
         return new StepBuilder("step2", jobRepository)
                 .tasklet(makeStep2Tasklet(), transactionManager)
                 .build();
@@ -59,10 +54,7 @@ public class StepNextJobConfiguration {
     }
 
     @Bean
-    public Step step3(
-            PlatformTransactionManager transactionManager,
-            JobRepository jobRepository
-    ) {
+    public Step step3(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
         return new StepBuilder("step3", jobRepository)
                 .tasklet(makeStep3Tasklet(), transactionManager)
                 .build();
