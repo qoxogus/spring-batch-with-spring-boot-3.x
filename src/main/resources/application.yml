@@ -1,4 +1,8 @@
 spring:
+  batch:
+    job:
+      name: ${job.name:NONE}
+
   h2:
     console:
       enabled: true
