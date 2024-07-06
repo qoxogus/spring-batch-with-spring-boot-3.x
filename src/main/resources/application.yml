@@ -21,4 +21,4 @@ spring:
 logging:
   level:
     root: INFO
-    ai.genesislab.springbatch: DEBUG
+    com.spring.batch: DEBUG

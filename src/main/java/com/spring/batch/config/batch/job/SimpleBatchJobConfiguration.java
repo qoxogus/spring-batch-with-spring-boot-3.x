@@ -1,4 +1,4 @@
-package ai.genesislab.springbatch.config.batch.job;
+package com.spring.batch.config.batch.job;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
