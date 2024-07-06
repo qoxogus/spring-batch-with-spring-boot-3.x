@@ -1,4 +1,4 @@
-package com.spring.batch.config.batch.job;
+package com.spring.batch.config.batch.job.next;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;

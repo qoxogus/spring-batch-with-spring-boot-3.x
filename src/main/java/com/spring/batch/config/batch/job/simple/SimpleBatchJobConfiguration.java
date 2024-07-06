@@ -1,4 +1,4 @@
-package com.spring.batch.config.batch.job;
+package com.spring.batch.config.batch.job.simple;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
