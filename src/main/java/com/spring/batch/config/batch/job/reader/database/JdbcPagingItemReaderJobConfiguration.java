@@ -1,4 +1,4 @@
-package com.spring.batch.config.batch.job.database;
+package com.spring.batch.config.batch.job.reader.database;
 
 import com.spring.batch.entity.pay.Pay;
 import lombok.RequiredArgsConstructor;
