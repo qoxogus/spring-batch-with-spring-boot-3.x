@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Pay {
+public class Pay2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,13 +25,13 @@ public class Pay {
     private String txName;
     private LocalDateTime txDateTime;
 
-    public Pay(Long amount, String txName, LocalDateTime txDateTime) {
+    public Pay2(Long amount, String txName, LocalDateTime txDateTime) {
         this.amount = amount;
         this.txName = txName;
         this.txDateTime = txDateTime;
     }
 
-    public Pay(Long id, Long amount, String txName, LocalDateTime txDateTime) {
+    public Pay2(Long id, Long amount, String txName, LocalDateTime txDateTime) {
         this.id = id;
         this.amount = amount;
         this.txName = txName;
