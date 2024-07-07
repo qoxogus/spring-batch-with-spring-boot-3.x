@@ -13,17 +13,21 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-public class ProcessorConvertJobConfiguration {
+public class ProcessorCompositeJobConfiguration {
 
-    public static final String JOB_NAME = "processorConvert";
+    public static final String JOB_NAME = "processorComposite";
 
     private final EntityManagerFactory entityManagerFactory;
 
@@ -43,7 +47,7 @@ public class ProcessorConvertJobConfiguration {
         return new StepBuilder(JOB_NAME + "Step", jobRepository)
                 .<Pay, String>chunk(chunkSize, transactionManager)
                 .reader(reader())
-                .processor(processor())
+                .processor(compositeProcessor())
                 .writer(writer())
                 .build();
     }
@@ -59,22 +63,29 @@ public class ProcessorConvertJobConfiguration {
     }
 
     @Bean
-    public ItemProcessor<Pay, String> processor() {
-        return pay -> {
-            boolean isIgnoreTarget = pay.getId() % 2 == 0L;
-            if(isIgnoreTarget){
-                log.info(">>>>>>>>> Pay txName={}, isIgnoreTarget={}", pay.getTxName(), isIgnoreTarget);
-                return null;
-            }
+    public CompositeItemProcessor compositeProcessor() {
+        List<ItemProcessor> delegates = new ArrayList<>(2);
+        delegates.add(processor1());
+        delegates.add(processor2());
 
-            return pay.getTxName();
-        };
+        CompositeItemProcessor processor = new CompositeItemProcessor<>();
+        processor.setDelegates(delegates);
+
+        return processor;
+    }
+
+    public ItemProcessor<Pay, String> processor1() {
+        return Pay::getTxName;
+    }
+
+    public ItemProcessor<String, String> processor2() {
+        return name -> "안녕하세요. "+ name + "입니다.";
     }
 
     private ItemWriter<String> writer() {
         return chunk -> {
             for (String item : chunk.getItems()) {
-                log.info("Pay txName={}", item);
+                log.info("Pay introduce={}", item);
             }
         };
     }
