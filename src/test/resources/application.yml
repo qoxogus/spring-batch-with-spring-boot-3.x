@@ -1,0 +1,37 @@
+spring:
+  batch:
+    job:
+      name: ${job.name:NONE}
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:tcp://localhost/~/dev/h2/spring-batch;mode=mariadb;
+      username: sa
+      password:
+      schema: classpath:sql/init.sql
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        ddl-auto: create-drop
+    show-sql: true
+  sql:
+    init:
+      username: sa
+      password:
+      schema-locations: sql/init.sql
+
+logging:
+  level:
+    root: INFO
+    com.spring.batch: DEBUG
+    org.springframework.batch: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
